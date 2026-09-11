@@ -1,12 +1,14 @@
 package com.duoc.RopaStore.service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.duoc.RopaStore.model.Product;
 import com.duoc.RopaStore.model.ProductDTO;
 import com.duoc.RopaStore.repository.ProductRepository;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ProductService {
@@ -33,5 +35,11 @@ public class ProductService {
             productDTOS.add(productDTO);
         }
         return productDTOS;
+    }
+
+    public List<ProductDTO> getSortedByPriceAscending() {
+        List<ProductDTO> products = findAll();
+        products.sort(Comparator.comparingDouble(ProductDTO::getPrice));
+        return products;
     }
 }
